@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener(
   });
 
   $("#downloadallbtn").click(function() {
-    $.getJSON( "http://localhost:8080/"+$("#textbox").val(), function( data ) {
+    $.getJSON( "http://192.168.1.10:8080/"+$("#textbox").val(), function( data ) {
       console.log(data)
       chrome.runtime.sendMessage({"message": "saveAllTeams", "teams": data});
     });
@@ -36,7 +36,7 @@ chrome.runtime.onMessage.addListener(
       contentType: 'application/json',
       dataType: 'application/json',
       type : "POST",
-      url: "http://localhost:8080/",
+      url: "http://192.168.1.10:8080/",
       //data: '{ "teamId": "' + t.teamId+ '", "team": "' + t.team + '" }' ,
       data: JSON.stringify({"username": $("#textbox").val(), "teamList" : []}) ,
       success: null,
@@ -50,7 +50,7 @@ chrome.runtime.onMessage.addListener(
         contentType: 'application/json',
         dataType: 'application/json',
         type : "POST",
-        url: "http://localhost:8080/"+$("#textbox").val()+"/teams",
+        url: "http://192.168.1.10:8080/"+$("#textbox").val()+"/teams",
         //data: '{ "teamId": "' + t.teamId+ '", "team": "' + t.team + '" }' ,
         data: JSON.stringify(loaded) ,
         success: null,

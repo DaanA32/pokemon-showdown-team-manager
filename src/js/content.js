@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener(
     } else if(request.message == "saveAllTeamsTab"){
       var teams = request.teams;
       console.log(teams);
-    }
+    } 
   }
   /*$(".teamicons .picon").each(function( key, value ) {
   var ptrn = new RegExp("[(].*[)]")
