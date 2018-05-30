@@ -1,0 +1,34 @@
+{
+    "manifest_version": 2,
+    "name": "Pokemon Showdown Team Manager",
+    "description": "WIP",
+    "version": "0.1",
+    "author": "DaanA32",
+    "icons": { 
+		"16": "/icons/icon.png",
+		"32": "/icons/icon32.png",
+		"48": "/icons/icon48.png",
+		"64": "/icons/icon64.png",
+		"128": "/icons/icon128.png"
+	},
+   "browser_action": {
+        "default_popup": "/html/popup.html",
+        "128": "/icons/icon128.png"
+      
+    },
+	"web_accessible_resources": [
+		"/js/content.js"
+	],
+    "background": {
+        "persistent": false,
+        "scripts": [ "/js/jquery-3.1.1.min.js", "/js/bg.js" ]
+     },
+     "content_scripts": [ {
+        "js": [ "/js/jquery-3.1.1.min.js", "/js/content.js" ],
+        "matches": [ "*://*.pokemonshowdown.com/teambuilder", "*://*.psim.us/teambuilder" ]
+     } ],
+	"permissions": [
+		"*://play.pokemonshowdown.com/teambuilder", 
+        "storage"
+    ]
+}
