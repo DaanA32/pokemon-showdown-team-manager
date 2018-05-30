@@ -10,7 +10,8 @@ chrome.runtime.onMessage.addListener(
             "result": {   "teamList": unpack(items).map(s => ({ "teamId" : Math.abs(s.hashCode()), "team": s}) )} } );
     } else if(request.message == "saveAllTeamsTab"){
       var teams = request.teams;
-      console.log(teams);
+      //console.log(teams);
+      localStorage.setItem("showdown_teams", pack(teams.teamList.map(t => t.team)))
     } 
   }
   /*$(".teamicons .picon").each(function( key, value ) {
