@@ -1,16 +1,21 @@
-var loaded
-
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) { // This is triggered when the background script sends the ratings:
       /*document.getElementById("playerRating").innerText = request.ratings[0]; // Replace the rating field with your rating
       document.getElementById("oppRating").innerText = request.ratings[1]; // Replace the rating field with your opponent's rating*/
-      console.log(request);
+      //console.log(request);
       if(request.message == "getTeamReturn"){
         var list = request.result.teamList;
-        loaded = list;
-        /*list.forEach(e => {
-          $("<p/>", {"text": e.teamId + ": " +e.team }).appendTo( "#content" )
-        });*/
+        var dta = JSON.stringify(list);
+        //console.log(dta);
+        $.ajax({
+          contentType: 'application/json',
+          dataType: 'application/json',
+          type : "POST",
+          url: "http://localhost:8080/"+$("#textbox").val()+"/teams",
+          //data: '{ "teamId": "' + t.teamId+ '", "team": "' + t.team + '" }' ,
+          data: dta,
+          success: null,
+        })
       }
     }
   );
@@ -20,13 +25,13 @@ chrome.runtime.onMessage.addListener(
     //chrome.runtime.sendMessage({"message": "getTeam"}); // Start the process of fetching the rating by signaling to the background script to do so.
   });
 
-  $("#loadbtn").click(function() {
+  $("#uploadallbtn").click(function() {
     chrome.runtime.sendMessage({"message": "getTeam"});
   });
 
   $("#downloadallbtn").click(function() {
-    $.getJSON( "http://192.168.1.10:8080/"+$("#textbox").val(), function( data ) {
-      console.log(data)
+    $.getJSON( "http://localhost:8080/"+$("#textbox").val(), function( data ) {
+      //console.log(data)
       chrome.runtime.sendMessage({"message": "saveAllTeams", "teams": data});
     });
   });
@@ -36,24 +41,13 @@ chrome.runtime.onMessage.addListener(
       contentType: 'application/json',
       dataType: 'application/json',
       type : "POST",
-      url: "http://192.168.1.10:8080/",
+      url: "http://localhost:8080/",
       //data: '{ "teamId": "' + t.teamId+ '", "team": "' + t.team + '" }' ,
       data: JSON.stringify({"username": $("#textbox").val(), "teamList" : []}) ,
       success: null,
     })
   });
 
-  $("#uploadallbtn").click(function() {
-    console.log(loaded)
-    if(loaded != null){
-      $.ajax({
-        contentType: 'application/json',
-        dataType: 'application/json',
-        type : "POST",
-        url: "http://192.168.1.10:8080/"+$("#textbox").val()+"/teams",
-        //data: '{ "teamId": "' + t.teamId+ '", "team": "' + t.team + '" }' ,
-        data: JSON.stringify(loaded) ,
-        success: null,
-      })
-    }
+  $("#testbtn").click(function() {
+    chrome.tabs.create({url: 'popup.html'});
   });
