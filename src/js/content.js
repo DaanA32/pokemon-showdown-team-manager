@@ -2,23 +2,17 @@
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if( request.message == "getTeamInfo" ) {
-
       var items = localStorage.getItem("showdown_teams")
       chrome.runtime.sendMessage(
         {
             "message": "getTeamResult",
             "result": {   "teamList": unpack(items).map(s => ({ "teamId" : Math.abs(s.hashCode()), "team": s}) )} } );
     } else if(request.message == "saveAllTeamsTab"){
-      var teams = request.teams;
-      //console.log(teams);
-      localStorage.setItem("showdown_teams", pack(teams.teamList.map(t => t.team)))
-    } 
+      var teams = request.teams.teams;
+      localStorage.setItem("showdown_teams", pack(teams.map(t => t.team)))
+      location.reload();
+    }
   }
-  /*$(".teamicons .picon").each(function( key, value ) {
-  var ptrn = new RegExp("[(].*[)]")
-  var str = value.title.replace(new RegExp("[(](([A-z]*((ed)|(ve)))|([0-9]*%))[)]$"), "")
-  console.log((ptrn.test(str) ? (ptrn.exec(str) + "").replace( (new RegExp("[(]")) ,"").replace( (new RegExp("[)]")) ,"") : str));
-});*/
 );
 
 String.prototype.hashCode = function(s){
