@@ -9,7 +9,6 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
-var _user;
 
 function writeUserData(userId, data) {
   firebase.database().ref('users/' + userId).set({
@@ -19,6 +18,7 @@ function writeUserData(userId, data) {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
+      console.log(request);
       if(request.message == "getTeamResult"){
         var list = request.result.teamList;
         writeUserData(firebase.auth().currentUser.uid, list);
@@ -26,6 +26,15 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
+window.addEventListener("message", function(event) {
+  if (event.source != window)
+    return;
+
+  if (event.data.type && (event.data.type == "FROM_PAGE")) {
+    console.log("Content script received: " + event.data.text);
+    port.postMessage(event.data.text);
+  }
+}, false);
 
 $("#uploadallbtn").click(function() {
   if(firebase.auth().currentUser != null){
@@ -86,6 +95,8 @@ function toggleSignIn() {
     // [END authwithemail]
   }
   document.getElementById('quickstart-sign-in').disabled = true;
+
+
 }
 /**
  * Handles the sign up button press.
@@ -168,7 +179,6 @@ function initApp() {
     // [END_EXCLUDE]
     if (user) {
       // User is signed in.
-      _user = user;
       var displayName = user.displayName;
       var email = user.email;
       var emailVerified = user.emailVerified;

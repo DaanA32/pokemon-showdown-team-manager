@@ -37,5 +37,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
         //console.log("----------------TEAM RESULT-----------------");
         //console.log(request)
         chrome.runtime.sendMessage({ "message":"getTeamReturn", "result": request.result});
+    } else if(request.message == "firebase_receive"){
+        console.log(request);
     }
   });
