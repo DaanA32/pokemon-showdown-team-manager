@@ -35,11 +35,12 @@ function pack(teams) {
 	return teams.join('\n');
 };
 
-function addbuttons(){
-  var b1 = $("<button id='upload-button'>Upload</button>").addClass("button big").click(uploadTeams)
-  var b2 = $("<button id='download-button'>Download</button>").addClass("button big").click(downloadTeams)
-  $(".teampane>p>[name=newTop]").after(b2)
-  $(".teampane>p>[name=newTop]").after(b1)
-}
-
-addbuttons()
+var b1 = $("<button id='upload-button' class='upload-button'>Upload</button>").addClass("button big")
+var b2 = $("<button id='download-button' class='download-button'>Download</button>").addClass("button big")
+$(".teampane>p>[name=newTop]").after(b2)
+$(".teampane>p>[name=newTop]").after(b1)
+/*var ele = document.createElement("script");
+ele.src = chrome.extension.getURL("/js/inject.js");
+document.body.appendChild(ele);*/
+$("#upload-button").click(uploadTeams)
+$("#download-button").click(downloadTeams)
