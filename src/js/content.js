@@ -1,19 +1,20 @@
-// Called when the user clicks on the page action icon. Retrieves the usernames of both combatants and the tier of the battle.
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if( request.message == "getTeamInfo" ) {
-      var items = localStorage.getItem("showdown_teams")
-      chrome.runtime.sendMessage({
-          "message": "getTeamResult",
-          "result": {   "teamList": unpack(items).map(s => ({"team": s}) )}
-        });
-    } else if(request.message == "saveAllTeamsTab"){
-      var teams = request.teams.teams;
-      localStorage.setItem("showdown_teams", pack(teams.map(t => t.team)))
-      location.reload();
-    }
-  }
-);
+function uploadTeams(){
+  var items = unpack(localStorage.getItem("showdown_teams"))
+  items.forEach((k,v) => {
+    var dt = { [v] : k}
+    chrome.storage.sync.clear()
+    chrome.storage.sync.set(dt, function() {
+    });
+  });
+}
+
+function downloadTeams(){
+  chrome.storage.sync.get(null, function(items) {
+    var allValues = Object.values(items);
+    localStorage.setItem("showdown_teams", pack(allValues))
+    location.reload()
+  });
+}
 
 String.prototype.hashCode = function(s){
       var hash = 0;
@@ -34,31 +35,11 @@ function pack(teams) {
 	return teams.join('\n');
 };
 
-function test(){
-  $('<script>')
-    .attr('type', 'text/javascript')
-    //.attr('id', 'test_id')
-    .text(myFunction.toString())
-    .appendTo('body');
+function addbuttons(){
+  var b1 = $("<button id='upload-button'>Upload</button>").addClass("button big").click(uploadTeams)
+  var b2 = $("<button id='download-button'>Download</button>").addClass("button big").click(downloadTeams)
+  $(".teampane>p>[name=newTop]").after(b2)
+  $(".teampane>p>[name=newTop]").after(b1)
 }
 
-function myFunction(index){
-  var team = Storage.teams[index]
-  console.log(team)
-  var p = Storage.getPackedTeam(team)
-  console.log((team.format ? '' + team.format + ']' : '') + (team.folder ? '' + team.folder + '/' : '') + team.name + '|' + p)
-}
-
-function testq(){
-  $('.teamlist li').each( (index, element) => {
-    $(element).append($('<button>')
-    .attr('id','test_b')
-    .attr('value', index)
-    .attr('onclick', 'myFunction(' + index + ')')
-    //.attr('style','display: none')
-    .text('Test'))
-  })
-}
-
-//test();
-//testq();
+addbuttons()

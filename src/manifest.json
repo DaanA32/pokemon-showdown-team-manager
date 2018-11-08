@@ -12,31 +12,17 @@
 		"64": "/icons/icon64.png",
 		"128": "/icons/icon128.png"
 	},
-   "browser_action": {
-        "default_popup": "/html/popup.html",
-        "128": "/icons/icon128.png"
-    },
 	"web_accessible_resources": [
-        "/js/content.js",
-        "/css/popup.css"
+        "/js/content.js"
 	],
-    "background": {
-        "persistent": false,
-        "scripts": [ "/js/jquery-3.1.1.min.js", "/js/bg.js" ]
-    },
     "content_scripts": [
         {
-            "js": [ "/js/jquery-3.1.1.min.js", "/js/content.js", "/js/inject.js" ],
+            "js": [ "/js/jquery-3.1.1.min.js", "/js/content.js" ],
             "matches": [ "*://*.pokemonshowdown.com/teambuilder", "*://*.psim.us/teambuilder" ]
         }
     ],
 	"permissions": [
-        "*://play.pokemonshowdown.com/teambuilder",
-        "*://www.gstatic.com/firebasejs/*",
-        "storage",
-        "tabs",
-        "declarativeContent",
-        "activeTab"
+        "storage"
     ],
     "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'"
     
