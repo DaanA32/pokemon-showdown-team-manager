@@ -1,8 +1,8 @@
 function uploadTeams(){
   var items = unpack(localStorage.getItem("showdown_teams"))
+  chrome.storage.sync.clear()
   items.forEach((k,v) => {
     var dt = { [v] : k}
-    chrome.storage.sync.clear()
     chrome.storage.sync.set(dt, function() {
     });
   });
