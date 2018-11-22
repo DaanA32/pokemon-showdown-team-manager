@@ -1,6 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Pokemon Showdown Team Manager",
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9RoHtXMO8XWcCyaqDT86REsNoOr2Zl4Z90U3BQxvQeFjhMLX0NH6ZUlzWiDbi6IFQNwaAXKEwLYyxQb1wSgCWOlqep3eiTAWN+Hm9nvav9NAjwdw0neOTySuRMnAq2hQptfTNfH5kuLB63HM+Ml6bi8+ZUnLR3JSu27fGINVdqi3oEPbnCX2UuvCjvxHSzCP3a8OsoNOGpY/WVgUzCq5kKglx1VeLCsEMljLRLM6vmSbBMX/M0mQI7OU37xnfDlUFuCePnMNwHppH+adb33drzjvlE++iCIMqHE8WPLuWZtVRbNefubb19IqMks6Fm7SsUayJ2A7vlw+QsMeD6i3SQIDAQAB",
     "description": "Saves pokemon showdown teams online. ",
     "version": "0.0.0.1",
     "version_name": "beta",
