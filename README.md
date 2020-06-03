@@ -1,2 +1,2 @@
 # pokemon-showdown-team-manager
-Simple extension for downloading and uploading all yours teams for using them on a different device.
+Simple Chrome extension for downloading and uploading all your teams for using them on a different device.
